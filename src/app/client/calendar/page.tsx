@@ -50,9 +50,9 @@ export default function ClientCalendarPage() {
       return;
     }
 
-    const uploadedCategories = new Set(docsData?.map(d => d.category));
+    const uploadedCategories = new Set(docsData?.map((d: any) => d.category));
     
-    const enriched = (obsData || []).map(ob => {
+    const enriched = (obsData || []).map((ob: any) => {
       const typeInfo = OBLIGATION_TYPES[ob.type as keyof typeof OBLIGATION_TYPES];
       const reqDocs = typeInfo?.required_docs || [];
       const daysUntil = getDaysUntilDue(ob.due_date);

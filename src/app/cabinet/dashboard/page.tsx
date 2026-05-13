@@ -7,7 +7,7 @@ import { DashboardClientList } from '@/components/cabinet/DashboardClientList';
 
 export const dynamic = 'force-dynamic';
 
-export default function CabinetDashboardPage() async {
+export default async function CabinetDashboardPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/login');
@@ -29,7 +29,7 @@ export default function CabinetDashboardPage() async {
     { count: weeklyReminders }
   ] = await Promise.all([
     supabase.from('client_assignments').select('*', { count: 'exact', head: true }).eq('cabinet_id', cabinetId),
-    supabase.from('documents').select('status').eq('cabinet_id', cabinetId),
+    supabase.from('documents').select('status, client_id').eq('cabinet_id', cabinetId),
     supabase.from('fiscal_obligations')
       .select(`*, client:profiles!fiscal_obligations_client_id_fkey(id, full_name)`)
       .eq('cabinet_id', cabinetId)

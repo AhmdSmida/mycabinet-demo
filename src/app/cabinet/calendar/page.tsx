@@ -48,7 +48,7 @@ export default function CabinetCalendarPage() {
       .select('client_id')
       .eq('cabinet_id', profile.cabinet_id);
 
-    const clientIds = (assignments || []).map(a => a.client_id);
+    const clientIds = (assignments || []).map((a: any) => a.client_id);
 
     if (clientIds.length > 0) {
       const { data: clientsData } = await supabase
